@@ -10,7 +10,7 @@ import Fiddler;
 //
 // The original version of this file is named SampleRules.js and it is in the
 // \Program Files\Fiddler\ folder. When Fiddler first starts, it creates a copy named
-// CustomRules.js inside your \Documents\Fiddler2\Scripts folder. If you make a 
+// CustomRules.js inside your \Documents\Fiddler2\Scripts folder. If you make a
 // mistake in editing this file, simply delete the CustomRules.js file and restart
 // Fiddler. A fresh copy of the default rules will be created from the original
 // sample rules file.
@@ -25,7 +25,7 @@ import Fiddler;
 // FiddlerScript Reference
 // http://www.fiddler2.com/redir/?id=fiddlerscriptcookbook
 //
-// FiddlerScript Editor: 
+// FiddlerScript Editor:
 // http://www.fiddler2.com/redir/?id=fiddlerscripteditor
 
 class Handlers
@@ -43,20 +43,20 @@ class Handlers
 
     // Cause Fiddler to override the Accept-Language header with one of the defined values
     public static RulesOption("Request &Japanese Content")
-    var m_Japanese: boolean = false;	
+    var m_Japanese: boolean = false;
 
     // Automatic Authentication
     public static RulesOption("&Automatically Authenticate")
     var m_AutoAuth: boolean = false;
 
     // Cause Fiddler to override the User-Agent header with one of the defined values
-    RulesString("&User-Agents", true) 
+    RulesString("&User-Agents", true)
     RulesStringValue(0,"Netscape &3", "Mozilla/3.0 (Win95; I)")
     RulesStringValue(1,"WinPhone7", "Mozilla/4.0 (compatible: MSIE 7.0; Windows Phone OS 7.0; Trident/3.1; IEMobile/7.0; SAMSUNG; SGH-i917)")
     RulesStringValue(2,"WinPhone7.5", "Mozilla/5.0 (compatible: MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0; SAMSUNG; SGH-i917)")
     RulesStringValue(3,"&Safari5 (Win7)", "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/533.21.1 (KHTML, like Gecko) Version/5.0.5 Safari/533.21.1")
     RulesStringValue(4,"Safari6 (Mac)", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8) AppleWebKit/536.25 (KHTML, like Gecko) Version/6.0 Safari/536.25")
-    RulesStringValue(5,"IPAD", "Mozilla/5.0 (iPad; CPU OS 5_1_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B206 Safari/7534.48.3")	
+    RulesStringValue(5,"IPAD", "Mozilla/5.0 (iPad; CPU OS 5_1_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B206 Safari/7534.48.3")
     RulesStringValue(6,"IE &6 (XPSP2)", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)")
     RulesStringValue(7,"IE &7 (Vista)", "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; SLCC1)")
     RulesStringValue(8,"IE 8 (Win2k3 x64)", "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.2; WOW64; Trident/4.0)")
@@ -97,11 +97,11 @@ class Handlers
 
     public static RulesOption("Cache Always &Fresh", "Per&formance")
     var m_AlwaysFresh: boolean = false;
-        
+
     // Force a manual reload of the script file.  Resets all
     // RulesOption variables to their defaults.
     public static ToolsAction("Reset Script")
-    function DoManualReload() { 
+    function DoManualReload() {
         FiddlerObject.ReloadScript();
     }
 
@@ -120,7 +120,7 @@ class Handlers
         // FiddlerObject.UI.ActivateRequestInspector("HEADERS");
         // FiddlerObject.UI.ActivateResponseInspector("HEADERS");
     }
-    
+
     static function OnShutdown() {
         // MessageBox.Show("Fiddler has shutdown");
     }
@@ -148,10 +148,10 @@ class Handlers
         // }
 
         if ((null != gs_ReplaceToken) && (oSession.url.indexOf(gs_ReplaceToken)>-1)) {   // Case sensitive
-            oSession.url = oSession.url.Replace(gs_ReplaceToken, gs_ReplaceTokenWith); 
+            oSession.url = oSession.url.Replace(gs_ReplaceToken, gs_ReplaceTokenWith);
         }
         if ((null != gs_OverridenHost) && (oSession.host.toLowerCase() == gs_OverridenHost)) {
-            oSession["x-overridehost"] = gs_OverrideHostWith; 
+            oSession["x-overridehost"] = gs_OverrideHostWith;
         }
 
         if ((null!=bpRequestURI) && oSession.uriContains(bpRequestURI)) {
@@ -168,14 +168,14 @@ class Handlers
 
         if (m_SimulateModem) {
             // Delay sends by 300ms per KB uploaded.
-            oSession["request-trickle-delay"] = "300"; 
+            oSession["request-trickle-delay"] = "300";
             // Delay receives by 150ms per KB downloaded.
-            oSession["response-trickle-delay"] = "150"; 
+            oSession["response-trickle-delay"] = "150";
         }
 
         if (m_SimulateSlowFonts && (oSession.uriContains(".eot") || oSession.uriContains(".woff") || oSession.uriContains("/fonts/"))) {
             // As above, delay received web fonts by 100ms per KB
-            oSession["response-trickle-delay"] = "100"; 
+            oSession["response-trickle-delay"] = "100";
         }
 
         if (m_DisableCaching) {
@@ -186,7 +186,7 @@ class Handlers
 
         // User-Agent Overrides
         if (null != sUA) {
-            oSession.oRequest["User-Agent"] = sUA; 
+            oSession.oRequest["User-Agent"] = sUA;
         }
 
         if (m_Japanese) {
@@ -194,11 +194,11 @@ class Handlers
         }
 
         if (m_AutoAuth) {
-            // Automatically respond to any authentication challenges using the 
+            // Automatically respond to any authentication challenges using the
             // current Fiddler user's credentials. You can change (default)
             // to a domain\\username:password string if preferred.
             //
-            // WARNING: This setting poses a security risk if remote 
+            // WARNING: This setting poses a security risk if remote
             // connections are permitted!
             oSession["X-AutoAuth"] = "(default)";
         }
@@ -216,7 +216,7 @@ class Handlers
     // been read from the client. This is typically too early to do much useful
     // work, since the body hasn't yet been read, but sometimes it may be useful.
     //
-    // For instance, see 
+    // For instance, see
     // http://blogs.msdn.com/b/fiddler/archive/2011/11/05/http-expect-continue-delays-transmitting-post-bodies-by-up-to-350-milliseconds.aspx
     // for one useful thing you can do with this handler.
     //
@@ -226,14 +226,14 @@ class Handlers
 */
 
     //
-    // If a given session has response streaming enabled, then the OnBeforeResponse function 
+    // If a given session has response streaming enabled, then the OnBeforeResponse function
     // is actually called AFTER the response was returned to the client.
     //
-    // In contrast, this OnPeekAtResponseHeaders function is called before the response headers are 
-    // sent to the client (and before the body is read from the server).  Hence this is an opportune time 
-    // to disable streaming (oSession.bBufferResponse = true) if there is something in the response headers 
+    // In contrast, this OnPeekAtResponseHeaders function is called before the response headers are
+    // sent to the client (and before the body is read from the server).  Hence this is an opportune time
+    // to disable streaming (oSession.bBufferResponse = true) if there is something in the response headers
     // which suggests that tampering with the response body is necessary.
-    // 
+    //
     // Note: oSession.responseBodyBytes is not available within this function!
     //
     static function OnPeekAtResponseHeaders(oSession: Session) {
@@ -247,7 +247,7 @@ class Handlers
             oSession["x-breakresponse"]="status";
             oSession.bBufferResponse = true;
         }
-        
+
         if ((null!=bpResponseURI) && oSession.uriContains(bpResponseURI)) {
             oSession["x-breakresponse"]="uri";
             oSession.bBufferResponse = true;
@@ -257,11 +257,11 @@ class Handlers
 
     static function OnBeforeResponse(oSession: Session) {
         if (m_ShowTimestamp){
-            oSession["ui-customcolumn"] = DateTime.Now.ToString("H:mm:ss.ffff") + " " + oSession["ui-customcolumn"]; 
+            oSession["ui-customcolumn"] = DateTime.Now.ToString("H:mm:ss.ffff") + " " + oSession["ui-customcolumn"];
         }
 
         if (m_ShowTTLB){
-            oSession["ui-customcolumn"] = oSession.oResponse.iTTLB + "ms " + oSession["ui-customcolumn"]; 
+            oSession["ui-customcolumn"] = oSession.oResponse.iTTLB + "ms " + oSession["ui-customcolumn"];
         }
 
         if (m_Hide304s && oSession.responseCode == 304){
@@ -270,7 +270,7 @@ class Handlers
     }
 
 /*
-    // This function executes just before Fiddler returns an error that it has 
+    // This function executes just before Fiddler returns an error that it has
     // itself generated (e.g. "DNS Lookup failure") to the client application.
     // These responses will not run through the OnBeforeResponse function above.
     static function OnReturningError(oSession: Session) {
@@ -284,7 +284,7 @@ class Handlers
         // FiddlerObject.UI.lvSessions.AddBoundColumn("Server", 50, "@response.server");
     }
 
-    // These static variables are used for simple breakpointing & other QuickExec rules 
+    // These static variables are used for simple breakpointing & other QuickExec rules
     static var bpRequestURI:String = null;
     static var bpResponseURI:String = null;
     static var bpStatus:int = -1;
@@ -321,12 +321,12 @@ class Handlers
         break;
     case "bpu":
         if (sParams.Length<2) {bpRequestURI=null; FiddlerObject.StatusText="RequestURI breakpoint cleared"; return;}
-        bpRequestURI = sParams[1]; 
+        bpRequestURI = sParams[1];
         FiddlerObject.StatusText="RequestURI breakpoint for "+sParams[1];
     break;
     case "bpafter":
         if (sParams.Length<2) {bpResponseURI=null; FiddlerObject.StatusText="ResponseURI breakpoint cleared"; return;}
-        bpResponseURI = sParams[1]; 
+        bpResponseURI = sParams[1];
         FiddlerObject.StatusText="ResponseURI breakpoint for "+sParams[1];
     break;
     case "overridehost":
@@ -378,7 +378,7 @@ class Handlers
         break;
     case "nuke":
         FiddlerObject.UI.actClearWinINETCache();
-        FiddlerObject.UI.actClearWinINETCookies(); 
+        FiddlerObject.UI.actClearWinINETCookies();
         break;
     case "show":
         FiddlerObject.UI.actRestoreWindow();
