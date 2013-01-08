@@ -147,6 +147,16 @@ class Handlers
         //     oSession.oFlags["x-breakrequest"] = "yup";	// Existence of the x-breakrequest flag creates a breakpoint; the "yup" value is unimportant.
         // }
 
+        /*
+            Simulate broken JavaScript bundle - adjust URI as appropriate:
+
+            if (oSession.uriContains("common-bundle")){
+                oSession["ui-color"] = "red";
+                oSession["ui-bold"] = "true";
+                oSession.oRequest.FailSession(404, "Blocked", "Fiddler blocked JavaScript bundle");
+            }
+        */
+
         if ((null != gs_ReplaceToken) && (oSession.url.indexOf(gs_ReplaceToken)>-1)) {   // Case sensitive
             oSession.url = oSession.url.Replace(gs_ReplaceToken, gs_ReplaceTokenWith);
         }
